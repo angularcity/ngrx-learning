@@ -1,0 +1,19 @@
+<h1>Books</h1>
+<ul>
+  <li *ngFor="let book of (book$ | async)">
+    Name: {{ book.name }} by user {{ book.userId }}
+  </li>
+</ul>
+<hr />
+<h1>Users</h1>
+<ul>
+  <li (click)="selectUser(user)" *ngFor="let user of (users$ | async)">
+    {{ user.id }} => {{ user.name }}
+  </li>
+</ul>
+<hr />
+<ul>
+  <li *ngFor="let book of (booksByUser$ | async)">
+    {{ book.id }} : {{ book.name }}
+  </li>
+</ul>
