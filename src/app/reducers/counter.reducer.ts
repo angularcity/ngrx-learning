@@ -1,6 +1,8 @@
-import { Action } from "@ngrx/store";
+import { Action, select } from "@ngrx/store";
 import { ActionTypes } from "../actions/counter.actions";
 import { createSelector, createFeatureSelector } from "@ngrx/store";
+import { pipe } from "rxjs";
+import { filter, switchMap } from "rxjs/operators";
 
 export interface CountState {
   count: number;
@@ -31,7 +33,13 @@ export function counterReducer(state = initialState, action: Action) {
 
 // selectors
 export const getCountFeatureState = createFeatureSelector("counter");
+
 export const getCount = createSelector(
   getCountFeatureState,
-  (state: CountState, props) => state.count * props.multiply
+  (state: CountState) => state.count
+);
+
+export const selectFilteredGetCount = pipe(
+  select(getCount),
+  filter(val => val > 3)
 );

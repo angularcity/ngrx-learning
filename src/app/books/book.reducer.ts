@@ -15,12 +15,14 @@ export interface AppState {
   selectedUser: User;
   allBooks: Book[];
   users: User[];
+  usersAPI: [];
 }
 
 export const initState: AppState = {
   selectedUser: null,
   allBooks: [],
-  users: []
+  users: [],
+  usersAPI: []
 };
 
 export function bookReducer(
@@ -45,6 +47,10 @@ export function bookReducer(
       };
     case bookActions.ActionTypes.SET_USER:
       return { ...state, selectedUser: action.payload.user };
+
+    case bookActions.ActionTypes.USERS_API_SUCCESS:
+      console.log("USERS FROM API", action.payload);
+      return { ...state, usersAPI: action.payload };
     default:
       return state;
   }
@@ -63,6 +69,11 @@ export const getSelectedUser = createSelector(
 export const getAllUsersSelector = createSelector(
   getBookFeatureState,
   (state: AppState) => state.users
+);
+
+export const getAllUsersFromAPI = createSelector(
+  getBookFeatureState,
+  (state: AppState) => state.usersAPI
 );
 export const getBooksByUserSelector = createSelector(
   getSelectedUser,

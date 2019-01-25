@@ -1,6 +1,7 @@
 <button (click)="increment()">Increment</button>
 
 <div>Current Count: {{ count$ | async }}</div>
+<div *ngIf="(count$ | async) < 5"><p>Sorry not available!</p></div>
 
 <button (click)="decrement()">Decrement</button>
 

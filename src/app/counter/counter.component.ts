@@ -12,7 +12,8 @@ import * as fromCounter from "../reducers/counter.reducer";
 export class CounterComponent {
   count$: Observable<number>;
   constructor(private store: Store<{ count: number }>) {
-    this.count$ = store.pipe(select(fromCounter.getCount));
+    // this.count$ = store.pipe(select(fromCounter.getCount));
+    this.count$ = store.pipe(fromCounter.selectFilteredGetCount);
   }
 
   increment() {
